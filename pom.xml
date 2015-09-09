@@ -7,7 +7,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>sandbox-springboot-rest</module>
-        <module>coordinator-api-helpdesk</module>
         <module>sandbox-springboot-security</module>
     </modules>
     <properties>
