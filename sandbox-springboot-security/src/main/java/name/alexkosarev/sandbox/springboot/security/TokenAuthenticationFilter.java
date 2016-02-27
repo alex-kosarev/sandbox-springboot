@@ -9,8 +9,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import name.alexkosarev.sandbox.springboot.security.exceptions.TokenAuthenticationHeaderNotFound;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,17 +20,17 @@ public class TokenAuthenticationFilter extends GenericFilterBean {
 
     private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    private final AuthenticationEntryPoint authenticationEntryPoint;
 
-    @Value("${application.tokenAuthentication.header}")
-    private String header;
+    private final String header;
 
-    @Value("${application.tokenAuthentication.ignoreFault}")
-    private boolean ignoreFault;
+    private final boolean ignoreFault;
 
-    public TokenAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public TokenAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationEntryPoint authenticationEntryPoint, String header, boolean ignoreFault) {
         this.authenticationManager = authenticationManager;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.header = header;
+        this.ignoreFault = ignoreFault;
     }
 
     @Override

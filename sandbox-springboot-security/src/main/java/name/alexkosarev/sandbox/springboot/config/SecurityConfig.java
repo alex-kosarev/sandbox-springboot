@@ -1,12 +1,13 @@
 package name.alexkosarev.sandbox.springboot.config;
 
-import javax.servlet.Filter;
 import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationEntryPoint;
 import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationFilter;
 import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,25 +22,33 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
+
+    @Value("${application.tokenAuthentication.header}")
+    private String header;
+
+    @Value("${application.tokenAuthentication.ignoreFault}")
+    private boolean ignoreFault;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER").and()
+                .withUser("admin").password("adminPassword").roles("USER", "ADMIN").and()
+                .and()
+                .authenticationProvider(tokenAuthenticationProvider(auth.getDefaultUserDetailsService()));
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.addFilterBefore(new TokenAuthenticationFilter(authenticationManager(), tokenAuthenticationEntryPoint(), header, ignoreFault), BasicAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()
-                .csrf().disable()
-                .addFilterBefore(tokenAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin").password("adminPassword").roles("USER", "ADMIN");
-        auth.authenticationProvider(tokenAuthenticationProvider(auth.getDefaultUserDetailsService()));
+                .csrf().disable();
     }
 
     @Bean
@@ -50,10 +59,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider tokenAuthenticationProvider(UserDetailsService userDetailsService) {
         return new TokenAuthenticationProvider(userDetailsService);
-    }
-
-    @Bean
-    public Filter tokenAuthenticationFilter(AuthenticationManager authenticationManager) {
-        return new TokenAuthenticationFilter(authenticationManager);
     }
 }
