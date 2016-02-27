@@ -1,4 +1,4 @@
-package name.alexkosarev.sandbox.springsecurity.services;
+package name.alexkosarev.sandbox.springboot.services;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

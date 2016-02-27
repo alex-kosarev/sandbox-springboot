@@ -1,4 +1,4 @@
-package name.alexkosarev.sandbox.springsecurity;
+package name.alexkosarev.sandbox.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

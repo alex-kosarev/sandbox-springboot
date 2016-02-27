@@ -1,4 +1,4 @@
-package name.alexkosarev.sandbox.springsecurity.security;
+package name.alexkosarev.sandbox.springboot.security;
 
 import java.util.Collection;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

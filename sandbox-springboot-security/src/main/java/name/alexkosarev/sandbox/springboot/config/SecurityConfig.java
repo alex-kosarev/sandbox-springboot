@@ -1,9 +1,9 @@
-package name.alexkosarev.sandbox.springsecurity.config;
+package name.alexkosarev.sandbox.springboot.config;
 
 import javax.servlet.Filter;
-import name.alexkosarev.sandbox.springsecurity.security.TokenAuthenticationEntryPoint;
-import name.alexkosarev.sandbox.springsecurity.security.TokenAuthenticationFilter;
-import name.alexkosarev.sandbox.springsecurity.security.TokenAuthenticationProvider;
+import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationEntryPoint;
+import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationFilter;
+import name.alexkosarev.sandbox.springboot.security.TokenAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

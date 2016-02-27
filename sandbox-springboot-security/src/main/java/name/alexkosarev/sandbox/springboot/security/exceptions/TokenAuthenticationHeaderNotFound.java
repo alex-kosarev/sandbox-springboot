@@ -1,4 +1,4 @@
-package name.alexkosarev.sandbox.springsecurity.security.exceptions;
+package name.alexkosarev.sandbox.springboot.security.exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 

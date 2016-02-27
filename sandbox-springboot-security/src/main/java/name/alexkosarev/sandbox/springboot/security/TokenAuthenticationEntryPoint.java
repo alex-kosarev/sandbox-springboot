@@ -1,10 +1,10 @@
-package name.alexkosarev.sandbox.springsecurity.security;
+package name.alexkosarev.sandbox.springboot.security;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import name.alexkosarev.sandbox.springsecurity.security.exceptions.TokenAuthenticationHeaderNotFound;
+import name.alexkosarev.sandbox.springboot.security.exceptions.TokenAuthenticationHeaderNotFound;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 

@@ -1,4 +1,4 @@
-package name.alexkosarev.sandbox.springsecurity.security;
+package name.alexkosarev.sandbox.springboot.security;
 
 import com.google.common.base.Strings;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import name.alexkosarev.sandbox.springsecurity.security.exceptions.TokenAuthenticationHeaderNotFound;
+import name.alexkosarev.sandbox.springboot.security.exceptions.TokenAuthenticationHeaderNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
